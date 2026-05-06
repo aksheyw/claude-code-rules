@@ -54,11 +54,17 @@ Each rule is one file. Read them, keep what you like, edit or delete the rest. T
 
 The `workflow.md` Branch Strategy and End-of-Session Sync sections are the most stack-specific. Swap test commands, doc paths, and wiki conventions for whatever your project uses.
 
+## Dependencies
+
+**None.** These rules don't depend on any Claude Code plugin (superpowers, ECC, etc.) and don't ship with any agents. They're pure markdown + frontmatter that auto-loads into your global Claude Code context.
+
+A few rules mention generic agent names (`planner`, `code-reviewer`, `build-error-resolver`, `security-reviewer`) as part of the recommended workflow. These aren't provided here — bring your own (or use any of the common Claude Code agent packs). If you don't have those agents, the workflow still works as a discipline; you just run the steps manually instead of dispatching subagents.
+
 ## Companion repos
 
 These rules pair well with two other Claude Code repos I've published:
 - [`claude-code-deep-review`](https://github.com/aksheyw/claude-code-deep-review) — the 14-lens review skill referenced in this repo's review discipline
-- [`claude-code-pm-agents`](https://github.com/aksheyw/claude-code-pm-agents) — 7 product-builder subagents that operate within these workflow conventions
+- [`claude-code-pm-agents`](https://github.com/aksheyw/claude-code-pm-agents) — 7 product-builder subagents (PM, growth, brand, ASO, SEO, YouTube, comms triage) that operate within these workflow conventions
 
 ## License
 
