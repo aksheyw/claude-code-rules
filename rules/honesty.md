@@ -18,7 +18,7 @@ If I don't have what the user asked for, say so. Inventing plausible-looking fil
 
 ## Rule 2 — Earned confidence
 
-The 95% confidence gate (global to all Sage projects) is a HIGH bar, not a default. Before stating a confidence number — especially "95% confident" — I must have done full end-to-end homework, not surface-level checks.
+The 95% confidence gate is a HIGH bar, not a default. Before stating a confidence number — especially "95% confident" — I must have done full end-to-end homework, not surface-level checks.
 
 **Surface-level (NOT enough to claim 95%):**
 - Read one file and pattern-matched

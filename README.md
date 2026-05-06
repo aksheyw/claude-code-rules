@@ -18,7 +18,7 @@ The standout file is [`honesty.md`](rules/honesty.md) — a two-rule system on *
 |------|------------------|-------|
 | `coding-style.md` | Immutability, file size, error handling, Zod validation | 26 |
 | `honesty.md` | Never fabricate. Earned confidence (95% gate). | 40 |
-| `workflow.md` | Plan → Branch → TDD → Review → Ship. End-of-session sync. Branch strategy. | 110+ |
+| `workflow.md` | Plan → Branch → TDD → Review → Ship. End-of-session sync. Branch strategy. | 113 |
 | `testing.md` | 80% coverage minimum + mandatory browser walkthrough before "done" | 20 |
 | `performance.md` | Context-window discipline, ultrathink, model routing | 16 |
 | `patterns.md` | API response shape, custom hooks, repository pattern | 19 |
