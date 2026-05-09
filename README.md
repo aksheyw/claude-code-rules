@@ -62,9 +62,10 @@ A few rules mention generic agent names (`planner`, `code-reviewer`, `build-erro
 
 ## Companion repos
 
-These rules pair well with two other Claude Code repos I've published:
+These rules are part of my Claude Code config series:
 - [`claude-code-deep-review`](https://github.com/aksheyw/claude-code-deep-review) — the 14-lens review skill referenced in this repo's review discipline
 - [`claude-code-pm-agents`](https://github.com/aksheyw/claude-code-pm-agents) — 7 product-builder subagents (PM, growth, brand, ASO, SEO, YouTube, comms triage) that operate within these workflow conventions
+- [`claude-code-learned-skills`](https://github.com/aksheyw/claude-code-learned-skills) — 3 Docker / SSH / VPS skills auto-extracted from real debugging sessions
 
 ## License
 
