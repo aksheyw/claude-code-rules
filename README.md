@@ -48,6 +48,49 @@ cp rules/*.md ~/.claude/rules/
 
 The rules auto-load into every Claude Code session via the global config. You don't need to invoke them — they're injected into context at session start.
 
+## Verify install worked
+
+Start a fresh Claude Code session in any project. The rules should appear in the session's system prompt under a heading like:
+
+```
+Contents of /Users/<you>/.claude/rules/honesty.md
+(user's private global instructions for all projects):
+
+# Honesty & Earned Confidence
+…
+```
+
+You won't *see* this directly in the chat UI — but you'll see the effect: Claude defaults to verbal hedges instead of confidence numbers, suggests TDD when you ask for a new feature, and flags commit-format violations during reviews. Quickest sanity check: ask *"how confident are you about X?"* — a rules-loaded Claude will hedge before committing to a number.
+
+If behavior doesn't change, see **Troubleshooting** below.
+
+## Example output
+
+After install, watch Claude shift on a `honesty.md`-triggering question:
+
+```
+You: How confident are you that function getUserById returns the canonical user record?
+
+Without rules loaded:
+> I'm 95% confident that getUserById returns the canonical user record — it queries
+> the users table directly with the primary key.
+
+With rules loaded (honesty.md governs):
+> I haven't traced the call path yet. Want me to check before I commit to a number?
+> What I see so far: the function name suggests a direct lookup, but I'd want to
+> verify it's not going through a cache layer or returning a partial projection
+> before claiming "canonical."
+```
+
+The hedge isn't cosmetic — it's the earned-confidence rule actively preventing a fabricated 95%-claim. Same pattern fires for `workflow.md` (suggests branching before code changes), `testing.md` (asks about browser walkthrough before "done"), and `coding-style.md` (flags mutation patterns).
+
+## Troubleshooting
+
+- **Rule behavior doesn't show up:** confirm files landed at `~/.claude/rules/<name>.md` (flat, no subdir). This path is **undocumented but functional** — Claude Code loads it as "user's private global instructions." If your version of Claude Code doesn't auto-load `~/.claude/rules/`, paste the file contents into your project's `CLAUDE.md` as a fallback.
+- **Some rules apply, others don't:** rules load alphabetically. If a later rule contradicts an earlier one, the later one usually wins for that session. Keep rules consistent or merge conflicting ones.
+- **Workflow rule references agents you don't have:** `workflow.md` mentions `planner`, `code-reviewer`, etc. as recommended subagents. They're not bundled here. Either install your own (see [`claude-code-pm-agents`](https://github.com/aksheyw/claude-code-pm-agents) for one bundle) or treat the steps as a manual discipline.
+- **Rule loaded but Claude ignores it mid-session:** rules can drift after long context. Re-anchor with *"refresh the honesty rule"* or start a fresh session.
+
 ## Customizing
 
 Each rule is one file. Read them, keep what you like, edit or delete the rest. They're meant to be opinionated — fork rather than wrap.
