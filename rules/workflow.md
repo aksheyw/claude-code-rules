@@ -4,6 +4,27 @@
 
 `<type>: <description>` — Types: feat, fix, refactor, docs, test, chore, perf, ci.
 
+## Agent & Working Files — persist and track BOTH sides
+
+If you run more than one coding agent against a repo, ALWAYS commit the agent working files on BOTH sides symmetrically:
+- **Claude:** `CLAUDE.md` and `.claude/agents/` (project-specific subagent/persona definitions).
+- **Any second harness (e.g. Codex):** its entry file (`AGENTS.md`) and its config directory (`.codex/` — agents, hooks, configs).
+
+**Never gitignore, delete, or leave either side untracked.** A common trap: a project's `.gitignore` has `.claude/*` (to hide local config) which silently ignores `.claude/agents/` too — so a fresh clone loses every agent definition. If you find this, negate `.claude/agents/` back in (`!.claude/agents/` + `!.claude/agents/**`) and commit the agents. Verify with `git check-ignore -v .claude/agents/<file>.md`.
+
+**Persist novel specialist personas the SAME session you create them.** If you spawn a reusable specialist as a subagent (a craft panel, a domain reviewer, a bespoke persona), write it to `.claude/agents/<name>.md` before the session ends — do NOT spawn it inline and lose it. **Capturing an agent's OUTPUT (e.g. into a review doc) is not the same as persisting the AGENT.** The definition is the reusable asset; the output is disposable. New `.claude/agents/*.md` files register on the next session start, so they become invocable-by-name going forward.
+
+## Restructuring an agent-instruction file — check the CONTENT CLASS before collapsing it
+
+Before turning an `AGENTS.md`, `CLAUDE.md`, or any agent-instruction file into a pointer, classify its content:
+
+- **Operative instructions** — gates, conventions, QA steps, self-review requirements, confidence thresholds, anything that changes how a session behaves — stay VERBATIM.
+- **Drift-prone facts** — stack versions, structure/file counts, schema, endpoints — become pointers to the single source (CLAUDE.md / a live query).
+
+An entry file is auto-loaded by its harness, and a session reading a bare "see CLAUDE.md" stub may NOT load CLAUDE.md — so a pointer-only entry file can silently strip every gate. Judge each cut from a fresh session's view: would it lose a rule? Then it stays.
+
+Two species exist and they are NOT the same: a stale workflow *inventory* is safe to pointer-collapse; a near-copy of the *operating instructions* is not — keep the gates verbatim and point only the fact sections.
+
 ## Feature Workflow
 
 1. **Plan** — Use a planner agent or planning skill; identify dependencies and risks
