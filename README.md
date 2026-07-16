@@ -1,6 +1,6 @@
 # Claude Code Rules — My Opinionated Global Config
 
-> **A small set of rules I load into every Claude Code session — covering honesty, TDD, immutability, branching, and what "done" actually means.**
+> **A small set of rules I load into every Claude Code session — covering honesty, homework-first, TDD, immutability, branching, delegation, and what "done" actually means.**
 
 This is the global config that auto-loads across all my Claude Code projects. It enforces the disciplines I've found compound over time: never fabricate, always TDD, never silently mutate, never push to main outside a gated ship action.
 
@@ -10,28 +10,37 @@ I kept watching Claude Code drift away from my conventions across sessions — s
 
 Putting these as **global rules** (auto-injected into every session) means I don't have to re-establish the conventions every time. They're the spine of how I work.
 
-The standout file is [`honesty.md`](rules/honesty.md) — a two-rule system on **earned confidence** that catches the most common Claude Code failure mode: confident-sounding claims based on shallow checks. The rule explicitly tells Claude to default to verbal hedges ("I think...", "based on what I see...") instead of confidence numbers, and to reserve "95% confident" for *after* end-to-end homework. The result is fewer inflated claims and more honest "I haven't verified X — want me to check?" check-ins mid-task.
+The standout file is [`honesty.md`](rules/honesty.md) — a three-rule system on **earned confidence** that catches the most common Claude Code failure mode: confident-sounding claims based on shallow checks. The rule explicitly tells Claude to default to verbal hedges ("I think...", "based on what I see...") instead of confidence numbers, and to reserve "95% confident" for *after* end-to-end homework. The result is fewer inflated claims and more honest "I haven't verified X — want me to check?" check-ins mid-task.
 
 ## What's in this repo
 
+13 rules. The original 8, refreshed, plus 5 new ones distilled from another two months of daily use.
+
 | Rule | What it enforces | Lines |
 |------|------------------|-------|
-| `coding-style.md` | Immutability, file size, error handling, Zod validation | 26 |
-| `honesty.md` | Never fabricate. Earned confidence (95% gate). | 40 |
-| `workflow.md` | Plan → Branch → TDD → Review → Ship. End-of-session sync. Branch strategy. | 113 |
-| `testing.md` | 80% coverage minimum + mandatory browser walkthrough before "done" | 20 |
-| `performance.md` | Context-window discipline, ultrathink, model routing | 16 |
-| `patterns.md` | API response shape, custom hooks, repository pattern | 19 |
-| `security.md` | Pre-commit security checklist | 17 |
-| `decisions.md` | DECISIONS.md convention for architectural decisions | 15 |
+| `coding-style.md` | Immutability, file size, error handling, Zod validation, the `ponytail:` deliberate-simplification convention | 42 |
+| `honesty.md` | Never fabricate. Earned confidence (95% gate). Capture before you claim. | 49 |
+| `homework-first.md` | **New.** The pre-task sweep: skills → memory → rendered benchmark → project files → history → sibling projects. A question you could answer by opening a file IS the violation. | 102 |
+| `capture-discipline.md` | **New.** Chat is NOT storage — subagent outputs, research, and decisions go to files the moment they exist, backed by a hook. | 61 |
+| `effort-and-pause-discipline.md` | **New.** Effort tracks blast radius, not task size. An effort question or explicit pause means a text-only turn, backed by a hook. | 75 |
+| `agents.md` | **New.** Delegation scales with model tier, parallel subagents, brief children fully, when NOT to delegate. | 60 |
+| `lessons.md` | **New.** The self-improvement loop: every user correction becomes a categorized lesson file; repeats escalate to CLAUDE.md. | 36 |
+| `workflow.md` | Plan → Branch → TDD → Review → Ship. End-of-session sync. Branch strategy. Persist agent files on both harness sides. | 133 |
+| `testing.md` | 80% coverage minimum + mandatory browser walkthrough before "done" | 19 |
+| `performance.md` | Context-window discipline, ultrathink, model routing | 15 |
+| `patterns.md` | API response shape, custom hooks, repository pattern | 18 |
+| `security.md` | Pre-commit security checklist + first-push secret scan for new repos | 43 |
+| `decisions.md` | DECISIONS.md convention for architectural decisions | 14 |
 
 ## The standout: honesty.md
 
-Most useful rule of the set. Two principles:
+Most useful rule of the set. Three principles:
 
 **Rule 1 — Never fabricate.** If I don't have what was asked for, say so. No invented file paths, function names, line numbers, API signatures, or "what the answer probably is."
 
 **Rule 2 — Earned confidence.** The "95% confident" claim is a HIGH bar, not a default. Surface-level checks (read one file and pattern-matched) don't qualify. End-to-end homework (traced the full code path, verified data shape at each boundary, checked failure modes, ran tests) does.
+
+**Rule 3 — Capture before you claim.** The inverse of Rule 1: evidence shared in a session gets saved to a file before it's used or claimed against, and Claude never writes an unverified self-limiting claim ("the user didn't archive X") into a deliverable that ships under the user's name. Verify against the source, not a copy; when unsure, ask.
 
 Result: Claude defaults to verbal hedges (*"I think...", "based on what I see..."*) instead of numbers, and only commits to confidence after doing the work. Massive trust improvement.
 
@@ -88,7 +97,7 @@ The hedge isn't cosmetic — it's the earned-confidence rule actively preventing
 
 - **Rule behavior doesn't show up:** confirm files landed at `~/.claude/rules/<name>.md` (flat, no subdir). This path is **undocumented but functional** — Claude Code loads it as "user's private global instructions." If your version of Claude Code doesn't auto-load `~/.claude/rules/`, paste the file contents into your project's `CLAUDE.md` as a fallback.
 - **Some rules apply, others don't:** rules load alphabetically. If a later rule contradicts an earlier one, the later one usually wins for that session. Keep rules consistent or merge conflicting ones.
-- **Workflow rule references agents you don't have:** `workflow.md` mentions `planner`, `code-reviewer`, etc. as recommended subagents. They're not bundled here. Either install your own (see [`claude-code-pm-agents`](https://github.com/aksheyw/claude-code-pm-agents) for one bundle) or treat the steps as a manual discipline.
+- **Workflow rule references agents you don't have:** `workflow.md` and `agents.md` mention `planner`, `code-reviewer`, etc. as recommended subagents. They're not bundled here. Either install your own (see [`claude-code-pm-agents`](https://github.com/aksheyw/claude-code-pm-agents) for one bundle) or treat the steps as a manual discipline.
 - **Rule loaded but Claude ignores it mid-session:** rules can drift after long context. Re-anchor with *"refresh the honesty rule"* or start a fresh session.
 
 ## Customizing
@@ -102,6 +111,8 @@ The `workflow.md` Branch Strategy and End-of-Session Sync sections are the most 
 **None.** These rules don't depend on any Claude Code plugin (superpowers, ECC, etc.) and don't ship with any agents. They're pure markdown + frontmatter that auto-loads into your global Claude Code context.
 
 A few rules mention generic agent names (`planner`, `code-reviewer`, `build-error-resolver`, `security-reviewer`) as part of the recommended workflow. These aren't provided here — bring your own (or use any of the common Claude Code agent packs). If you don't have those agents, the workflow still works as a discipline; you just run the steps manually instead of dispatching subagents.
+
+Two of the new rules (`capture-discipline.md`, `effort-and-pause-discipline.md`) describe optional backstop **hooks** — a PostToolUse capture hook and a PreToolUse pause guard. Those are patterns to implement yourself, not shipped scripts. The rules work without them; the hooks just make them mechanical instead of memory-dependent.
 
 ## Companion repos
 
