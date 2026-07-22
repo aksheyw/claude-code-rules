@@ -1,18 +1,41 @@
-# Claude Code Rules: My Opinionated Global Config
+<div align="center">
 
-> **A small set of rules I load into every Claude Code session, covering honesty, homework-first, TDD, immutability, branching, delegation, and what "done" actually means.**
+# 📋 Claude Code Rules: my opinionated global config
 
-This is the global config that auto-loads across all my Claude Code projects. It enforces the disciplines I've found compound over time: never fabricate, always TDD, never silently mutate, never push to main outside a gated ship action.
+### Thirteen standing rules, so I stop re-explaining myself after every context reset.
 
-## Why I built this
+![requires](https://img.shields.io/badge/requires-Claude%20Code-D97757) ![rules](https://img.shields.io/badge/rules-13-0E9384) ![loads](https://img.shields.io/badge/loads-automatically-1B2A4A) ![dependencies](https://img.shields.io/badge/dependencies-none-lightgrey) ![license](https://img.shields.io/badge/license-MIT-green)
 
-I kept watching Claude Code drift away from my conventions across sessions (sometimes mid-session). I'd say "TDD please" once, get good behavior, then lose it after a context reset.
+</div>
 
-Putting these as **global rules** (auto-injected into every session) means I don't have to re-establish the conventions every time. They're the spine of how I work.
+---
 
-The standout file is [`honesty.md`](rules/honesty.md), a three-rule system on **earned confidence** that catches the most common Claude Code failure mode: confident-sounding claims based on shallow checks. The rule explicitly tells Claude to default to verbal hedges ("I think...", "based on what I see...") instead of confidence numbers, and to reserve "95% confident" for *after* end-to-end homework. The result is fewer inflated claims and more honest "I haven't verified X. Want me to check?" check-ins mid-task.
+Claude Code is Anthropic's AI coding assistant. It runs in your terminal, reads the files in your
+project, and can change them for you. A **rule** is a markdown file it loads into every session on
+its own, before you ask it anything.
 
-## What's in this repo
+It forgets everything between sessions, and a long one resets partway through too. I kept
+re-teaching it the same conventions and losing them again, so I wrote the thirteen that stuck.
+
+<img src="docs/what-a-rule-changes.svg" width="100%"
+     alt="An illustration of the same question asked twice: how confident are you that getUserById returns the canonical user record? Without the rules loaded, the answer is 'I'm 95% confident, it queries the users table directly with the primary key', and the number was never earned because nothing was checked. With honesty.md loaded, the answer is 'I haven't traced the call path yet. Want me to check before I commit to a number? The name suggests a direct lookup, but I'd want to rule out a cache layer or a partial projection first', which is a hedge you can act on and an offer to go and check. Below: thirteen rules load automatically at the start of every session, in four groups. Four on how it reports and learns (honesty, homework, capture, lessons), four on how work ships (workflow, testing, security, decisions), three on how code gets written (coding-style, patterns, performance), and two on how work gets handed off (agents, effort-and-pause).">
+
+## Why a rule beats saying it again
+
+Telling Claude Code to write the test before the code works, right up until it forgets. Then you say
+it again. A rule is the same instruction, except it's loaded before you type anything, in every
+project, so the convention survives the reset that would otherwise wipe it.
+
+The one I'd read first is [`honesty.md`](rules/honesty.md), which is what the picture above shows. It
+treats "95% confident" as a high bar, not a default. Reading one file and pattern-matching doesn't
+earn the number. Tracing the path end to end does. So you get fewer confident guesses, and more "I
+haven't verified that yet, want me to check?" halfway through a task.
+
+Five of the thirteen name the specific session that produced them, at the bottom of the file. They're
+postmortems as much as preferences.
+
+<details>
+<summary><b>📋 All thirteen rules, and what each one enforces</b></summary>
 
 13 rules. The original 8, refreshed, plus 5 new ones distilled from another two months of daily use.
 
@@ -32,34 +55,60 @@ The standout file is [`honesty.md`](rules/honesty.md), a three-rule system on **
 | `security.md` | Pre-commit security checklist + first-push secret scan for new repos | 43 |
 | `decisions.md` | DECISIONS.md convention for architectural decisions | 14 |
 
-## The standout: honesty.md
+</details>
 
-Most useful rule of the set. Three principles:
+<details>
+<summary><b>🔍 What honesty.md says, in full</b></summary>
 
-**Rule 1: Never fabricate.** If I don't have what was asked for, say so. No invented file paths, function names, line numbers, API signatures, or "what the answer probably is."
+Three principles, and they work as a set.
 
-**Rule 2: Earned confidence.** The "95% confident" claim is a HIGH bar, not a default. Surface-level checks (read one file and pattern-matched) don't qualify. End-to-end homework (traced the full code path, verified data shape at each boundary, checked failure modes, ran tests) does.
+**Rule 1: Never fabricate.** If I don't have what was asked for, say so. No invented file paths,
+function names, line numbers, API signatures, or "what the answer probably is."
 
-**Rule 3: Capture before you claim.** The inverse of Rule 1: evidence shared in a session gets saved to a file before it's used or claimed against, and Claude never writes an unverified self-limiting claim ("the user didn't archive X") into a deliverable that ships under the user's name. Verify against the source, not a copy; when unsure, ask.
+**Rule 2: Earned confidence.** "95% confident" is a high bar, not a default. Surface-level checks
+(read one file, pattern-matched) don't qualify. End-to-end homework does: traced the full code path,
+verified the data shape at each boundary, checked the failure modes, ran the tests.
 
-Result: Claude defaults to verbal hedges (*"I think...", "based on what I see..."*) instead of numbers, and only commits to confidence after doing the work. Massive trust improvement.
+**Rule 3: Capture before you claim.** The inverse of Rule 1. Evidence shared in a session gets saved
+to a file before it's used or claimed against, and Claude never writes an unverified self-limiting
+claim ("the user didn't archive X") into something that ships under the user's name. Verify against
+the source, not a copy. When unsure, ask.
+
+Rule 3 exists because the opposite failure is just as expensive as fabricating. A hedge written to
+sound humble can quietly understate what you actually built, and it ships under your name either way.
+
+</details>
 
 ## Install
+
+You need [Claude Code](https://claude.com/claude-code) itself first, because these are files it
+reads. `~/.claude/` is the folder it keeps its own settings in.
 
 ```bash
 git clone https://github.com/aksheyw/claude-code-rules.git
 cd claude-code-rules
 
-# Install to your global rules directory
 mkdir -p ~/.claude/rules
-cp rules/*.md ~/.claude/rules/
+cp -i rules/*.md ~/.claude/rules/
 ```
 
-The rules auto-load into every Claude Code session via the global config. You don't need to invoke them, since they're injected into context at session start.
+`cp -i` asks before replacing anything, which matters because names like `security.md` and
+`workflow.md` are exactly what you'd have called your own. Drop the `-i` once you've looked.
 
-## Verify install worked
+That's the whole install. You never invoke a rule: they're injected into context when a session
+starts, so the next session you open already has them.
 
-Start a fresh Claude Code session in any project. The rules should appear in the session's system prompt under a heading like:
+<details>
+<summary><b>🔍 Check it worked, and what to do if it didn't</b></summary>
+
+You won't see the rules in the chat window. You'll see the effect, so test for the effect: ask
+*"how confident are you about X?"* and a rules-loaded Claude will usually hedge before committing to
+a number. The same shift shows up elsewhere: `workflow.md` suggests a branch before you change code,
+`testing.md` asks about the browser walkthrough before it agrees something is done, and
+`coding-style.md` flags code that mutates an object instead of returning a new one.
+
+You can also check it landed by looking at what a session was given. The rules arrive under a heading
+like this:
 
 ```
 Contents of /Users/<you>/.claude/rules/honesty.md
@@ -69,58 +118,53 @@ Contents of /Users/<you>/.claude/rules/honesty.md
 …
 ```
 
-You won't *see* this directly in the chat UI, but you'll see the effect: Claude defaults to verbal hedges instead of confidence numbers, suggests TDD when you ask for a new feature, and flags commit-format violations during reviews. Quickest sanity check: ask *"how confident are you about X?"* and a rules-loaded Claude will hedge before committing to a number.
+- **Nothing changes:** confirm the files landed flat at `~/.claude/rules/<name>.md`, with no
+  subdirectory. That path is **undocumented but functional**, because Claude Code loads it as the
+  user's private global instructions. If your version doesn't pick it up, paste the contents into
+  your project's `CLAUDE.md` instead, which is the per-project instructions file it always reads.
+- **Some rules apply and others don't:** they load alphabetically, and a later rule that contradicts
+  an earlier one usually wins for that session. Keep them consistent, or merge the two.
+- **A rule mentions agents you don't have:** `workflow.md` and `agents.md` name `planner`,
+  `code-reviewer` and others as recommended subagents, meaning separate assistants with one job
+  each. They aren't bundled here. Install your own, or treat those steps as a manual discipline.
+- **It loaded but drifts mid-session:** long context wears them down. Re-anchor with *"refresh the
+  honesty rule"*, or start a fresh session.
 
-If behavior doesn't change, see **Troubleshooting** below.
+</details>
 
-## Example output
+<details>
+<summary><b>📦 What is NOT in here</b></summary>
 
-After install, watch Claude shift on a `honesty.md`-triggering question:
+**No dependencies.** These don't need any Claude Code plugin (superpowers, ECC and the rest) and
+don't ship any agents. They're plain markdown that loads into your global context.
 
-```
-You: How confident are you that function getUserById returns the canonical user record?
+**No agents.** A few rules name generic ones (`planner`, `code-reviewer`, `build-error-resolver`,
+`security-reviewer`) as part of the recommended workflow. Bring your own, or use any agent pack. The
+workflow still holds as a discipline, you just run the steps yourself instead of handing them off.
 
-Without rules loaded:
-> I'm 95% confident that getUserById returns the canonical user record — it queries
-> the users table directly with the primary key.
+**No hooks.** Two of the new rules (`capture-discipline.md`, `effort-and-pause-discipline.md`)
+describe backstop hooks, meaning small scripts that run automatically at a fixed moment so they can
+block an action rather than politely ask: a PostToolUse capture hook, which fires after a tool runs,
+and a PreToolUse pause guard, which fires before one. Those are patterns to implement yourself, not
+shipped scripts. The rules work without them; the hooks just make them mechanical instead of memory-dependent.
 
-With rules loaded (honesty.md governs):
-> I haven't traced the call path yet. Want me to check before I commit to a number?
-> What I see so far: the function name suggests a direct lookup, but I'd want to
-> verify it's not going through a cache layer or returning a partial projection
-> before claiming "canonical."
-```
+</details>
 
-The hedge isn't cosmetic. It's the earned-confidence rule actively preventing a fabricated 95%-claim. Same pattern fires for `workflow.md` (suggests branching before code changes), `testing.md` (asks about browser walkthrough before "done"), and `coding-style.md` (flags mutation patterns).
+## Make them yours
 
-## Troubleshooting
-
-- **Rule behavior doesn't show up:** confirm files landed at `~/.claude/rules/<name>.md` (flat, no subdir). This path is **undocumented but functional**, because Claude Code loads it as "user's private global instructions." If your version of Claude Code doesn't auto-load `~/.claude/rules/`, paste the file contents into your project's `CLAUDE.md` as a fallback.
-- **Some rules apply, others don't:** rules load alphabetically. If a later rule contradicts an earlier one, the later one usually wins for that session. Keep rules consistent or merge conflicting ones.
-- **Workflow rule references agents you don't have:** `workflow.md` and `agents.md` mention `planner`, `code-reviewer`, etc. as recommended subagents. They're not bundled here. Either install your own (see [`claude-code-pm-agents`](https://github.com/aksheyw/claude-code-pm-agents) for one bundle) or treat the steps as a manual discipline.
-- **Rule loaded but Claude ignores it mid-session:** rules can drift after long context. Re-anchor with *"refresh the honesty rule"* or start a fresh session.
-
-## Customizing
-
-Each rule is one file. Read them, keep what you like, edit or delete the rest. They're meant to be opinionated: fork rather than wrap.
-
-The `workflow.md` Branch Strategy and End-of-Session Sync sections are the most stack-specific. Swap test commands, doc paths, and wiki conventions for whatever your project uses.
-
-## Dependencies
-
-**None.** These rules don't depend on any Claude Code plugin (superpowers, ECC, etc.) and don't ship with any agents. They're pure markdown + frontmatter that auto-loads into your global Claude Code context.
-
-A few rules mention generic agent names (`planner`, `code-reviewer`, `build-error-resolver`, `security-reviewer`) as part of the recommended workflow. These aren't provided here, so bring your own (or use any of the common Claude Code agent packs). If you don't have those agents, the workflow still works as a discipline; you just run the steps manually instead of dispatching subagents.
-
-Two of the new rules (`capture-discipline.md`, `effort-and-pause-discipline.md`) describe optional backstop **hooks**: a PostToolUse capture hook and a PreToolUse pause guard. Those are patterns to implement yourself, not shipped scripts. The rules work without them; the hooks just make them mechanical instead of memory-dependent.
+Each rule is one file. Read them, keep what you like, edit or delete the rest. They're meant to be
+opinionated, so fork rather than wrap. The Branch Strategy and End-of-Session Sync sections in
+`workflow.md` are the most specific to my setup, so swap the test commands, doc paths and wiki
+conventions for whatever your project uses.
 
 ## Companion repos
 
-These rules are part of my Claude Code config series:
-- [`claude-code-deep-review`](https://github.com/aksheyw/claude-code-deep-review): the 14-lens review skill referenced in this repo's review discipline
-- [`claude-code-pm-agents`](https://github.com/aksheyw/claude-code-pm-agents): 7 product-builder subagents (PM, growth, brand, ASO, SEO, YouTube, comms triage) that operate within these workflow conventions
-- [`claude-code-learned-skills`](https://github.com/aksheyw/claude-code-learned-skills): 12 skills auto-extracted from real debugging and research sessions (Docker/SSH/VPS, ML pipelines, prompting guides, quality tooling, a project wiki)
-- [`career-command-center-template`](https://github.com/aksheyw/career-command-center-template): full plugin template for an AI-native job-search workflow (12 skills, 8 personal-data skeletons, hooks)
+Part of my Claude Code config series:
+
+- [`claude-code-deep-review`](https://github.com/aksheyw/claude-code-deep-review): the 14-lens review skill this repo's review discipline points at
+- [`claude-code-pm-agents`](https://github.com/aksheyw/claude-code-pm-agents): 7 product-builder subagents (PM, growth, brand, ASO, SEO, YouTube, comms triage) that work inside these conventions
+- [`claude-code-learned-skills`](https://github.com/aksheyw/claude-code-learned-skills): 12 skills taken from real debugging and research sessions, covering Docker, SSH and VPS work, ML pipelines, prompting guides, quality tooling and a project wiki
+- [`career-command-center-template`](https://github.com/aksheyw/career-command-center-template): a full plugin template for running a job search with Claude Code, with 12 skills, 8 personal-data files you fill in yourself, and hooks
 
 ## License
 
@@ -128,4 +172,5 @@ MIT (see [LICENSE](LICENSE)).
 
 ---
 
-Built by [Akshey Walia](https://github.com/aksheyw). If a rule conflicts with your context or you've improved on one, open an issue or PR.
+Built by [Akshey Walia](https://github.com/aksheyw). If a rule conflicts with your context, or you've
+improved on one, open an issue or a pull request.

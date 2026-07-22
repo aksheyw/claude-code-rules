@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="960" height="470" role="img" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="470" fill="#FFFFFF"/>
+
+  <text x="40" y="36" font-size="15" font-weight="600" fill="#5B6169">The same question, asked twice (illustration)</text>
+  <text x="40" y="58" font-size="13.5" fill="#8A8F98">"How confident are you that getUserById returns the canonical user record?"</text>
+
+  <!-- BEFORE row -->
+  <rect x="40" y="78" width="880" height="112" rx="10" fill="#F5F6F7" stroke="#B9BEC6" stroke-width="1.5"/>
+  <text x="60" y="104" font-size="12" font-weight="700" fill="#8A8F98">WITHOUT THE RULES</text>
+  <text x="60" y="132" font-size="14.5" fill="#5B6169">"I'm 95% confident. It queries the users table directly with the primary key."</text>
+  <rect x="60" y="146" width="384" height="28" rx="6" fill="#FDF6F5" stroke="#E8D5D2" stroke-width="1"/>
+  <text x="74" y="165" font-size="13" font-weight="600" fill="#B42318">The number was never earned. Nothing was checked.</text>
+
+  <!-- AFTER row -->
+  <rect x="40" y="206" width="880" height="132" rx="10" fill="#E6F4F1" stroke="#0E9384" stroke-width="1.5"/>
+  <text x="60" y="232" font-size="12" font-weight="700" fill="#0B6E5F">WITH honesty.md LOADED</text>
+  <text x="60" y="260" font-size="14.5" fill="#0B6E5F">"I haven't traced the call path yet. Want me to check before I commit to a number?</text>
+  <text x="60" y="281" font-size="14.5" fill="#0B6E5F">The name suggests a direct lookup, but I'd want to rule out a cache layer or a partial projection first."</text>
+  <rect x="60" y="295" width="404" height="28" rx="6" fill="#FFFFFF" stroke="#0E9384" stroke-width="1"/>
+  <text x="74" y="314" font-size="13" font-weight="600" fill="#0B6E5F">A hedge you can act on, and an offer to go and check.</text>
+
+  <line x1="40" y1="366" x2="920" y2="366" stroke="#E3E6EB" stroke-width="1"/>
+
+  <text x="40" y="398" font-size="15" font-weight="600" fill="#5B6169">Thirteen rules, loaded automatically at the start of every session</text>
+
+  <rect x="40" y="412" width="212" height="42" rx="8" fill="#F3F5F9" stroke="#B9BEC6" stroke-width="1"/>
+  <text x="56" y="430" font-size="17" font-weight="700" fill="#1B2A4A">4</text>
+  <text x="74" y="430" font-size="13" fill="#1B2A4A">How it reports and learns</text>
+  <text x="56" y="447" font-size="12" fill="#5B6169">honesty · homework · capture · lessons</text>
+
+  <rect x="264" y="412" width="212" height="42" rx="8" fill="#F3F5F9" stroke="#B9BEC6" stroke-width="1"/>
+  <text x="280" y="430" font-size="17" font-weight="700" fill="#1B2A4A">4</text>
+  <text x="298" y="430" font-size="13" fill="#1B2A4A">How work ships</text>
+  <text x="280" y="447" font-size="12" fill="#5B6169">workflow · testing · security · decisions</text>
+
+  <rect x="488" y="412" width="212" height="42" rx="8" fill="#F3F5F9" stroke="#B9BEC6" stroke-width="1"/>
+  <text x="504" y="430" font-size="17" font-weight="700" fill="#1B2A4A">3</text>
+  <text x="522" y="430" font-size="13" fill="#1B2A4A">How code gets written</text>
+  <text x="504" y="447" font-size="12" fill="#5B6169">coding-style · patterns · performance</text>
+
+  <rect x="712" y="412" width="208" height="42" rx="8" fill="#F3F5F9" stroke="#B9BEC6" stroke-width="1"/>
+  <text x="728" y="430" font-size="17" font-weight="700" fill="#1B2A4A">2</text>
+  <text x="746" y="430" font-size="13" fill="#1B2A4A">How work gets handed off</text>
+  <text x="728" y="447" font-size="12" fill="#5B6169">agents · effort-and-pause</text>
+</svg>
