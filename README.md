@@ -31,7 +31,7 @@ treats "95% confident" as a high bar, not a default. Reading one file and patter
 earn the number. Tracing the path end to end does. So you get fewer confident guesses, and more "I
 haven't verified that yet, want me to check?" halfway through a task.
 
-Five of the thirteen name the specific session that produced them, at the bottom of the file. They're
+Five of the thirteen name the specific session that produced them. They're
 postmortems as much as preferences.
 
 <details>
@@ -44,8 +44,8 @@ postmortems as much as preferences.
 | `coding-style.md` | Immutability, file size, error handling, Zod validation, the `ponytail:` deliberate-simplification convention | 42 |
 | `honesty.md` | Never fabricate. Earned confidence (95% gate). Capture before you claim. | 49 |
 | `homework-first.md` | **New.** The pre-task sweep: skills → memory → rendered benchmark → project files → history → sibling projects. A question you could answer by opening a file IS the violation. | 102 |
-| `capture-discipline.md` | **New.** Chat is NOT storage: subagent outputs, research, and decisions go to files the moment they exist, backed by a hook. | 61 |
-| `effort-and-pause-discipline.md` | **New.** Effort tracks blast radius, not task size. An effort question or explicit pause means a text-only turn, backed by a hook. | 75 |
+| `capture-discipline.md` | **New.** Chat is NOT storage: subagent outputs, research, and decisions go to files the moment they exist. | 61 |
+| `effort-and-pause-discipline.md` | **New.** Effort tracks blast radius, not task size. An effort question or explicit pause means a text-only turn. | 75 |
 | `agents.md` | **New.** Delegation scales with model tier, parallel subagents, brief children fully, when NOT to delegate. | 60 |
 | `lessons.md` | **New.** The self-improvement loop: every user correction becomes a categorized lesson file; repeats escalate to CLAUDE.md. | 36 |
 | `workflow.md` | Plan → Branch → TDD → Review → Ship. End-of-session sync. Branch strategy. Persist agent files on both harness sides. | 133 |
