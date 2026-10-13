@@ -19,7 +19,7 @@ skip your CLAUDE.md files and project rules to stay fast and cheap; other subage
 - If the task only reads and searches, the read-only type is the cheaper choice.
 - **The trade: it does not see your CLAUDE.md files or project rules.** Its brief must carry any
   binding context, or it will reopen a question you already settled.
-- **A read-only agent cannot write a file.** If you want its report on disk, the main session
+- **A read-only agent has no Write or Edit tool.** If you want its report on disk, the main session
   writes it from the returned text. Say so in the brief.
 
 ## Parallel Task Execution

@@ -52,7 +52,7 @@ git grep -nwE '[0-9]{12}'
 # IFSC (bank branch code)
 git grep -nwE '[A-Z]{4}0[A-Z0-9]{6}'
 # Masked account tails
-git grep -nwE 'XX[0-9]{4,}'
+git grep -nwE 'X{2,}[0-9]{4,}'
 # The words that sit next to an identifier
 git grep -inwE '(pan|aadhaar|folio|demat|client[ _-]?(id|code)|uan|pran|policy[ _-]?no)'
 ```
