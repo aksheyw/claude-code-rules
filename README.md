@@ -42,17 +42,17 @@ postmortems as much as preferences.
 | Rule | What it enforces | Lines |
 |------|------------------|-------|
 | `coding-style.md` | Immutability, file size, error handling, Zod validation, the `ponytail:` deliberate-simplification convention | 42 |
-| `honesty.md` | Never fabricate. Earned confidence (95% gate). Capture before you claim. | 49 |
-| `homework-first.md` | **New.** The pre-task sweep: skills → memory → rendered benchmark → project files → history → sibling projects. A question you could answer by opening a file IS the violation. | 102 |
-| `capture-discipline.md` | **New.** Chat is NOT storage: subagent outputs, research, and decisions go to files the moment they exist. | 66 |
+| `honesty.md` | Never fabricate. Earned confidence (95% gate). Capture before you claim. | 56 |
+| `homework-first.md` | **New.** The pre-task sweep: skills → memory → rendered benchmark → project files → history → sibling projects. A question you could answer by opening a file IS the violation. | 126 |
+| `capture-discipline.md` | **New.** Chat is NOT storage: subagent outputs, research, and decisions go to files the moment they exist. | 78 |
 | `effort-and-pause-discipline.md` | **New.** Effort tracks blast radius, not task size. An effort question or explicit pause means a text-only turn. | 75 |
-| `agents.md` | **New.** Delegation scales with model tier, parallel subagents, brief children fully, when NOT to delegate. | 60 |
+| `agents.md` | **New.** Delegation scales with model tier, parallel subagents, brief children fully, pick the agent type knowing what it loads, when NOT to delegate. | 72 |
 | `lessons.md` | **New.** The self-improvement loop: every user correction becomes a categorized lesson file; repeats escalate to CLAUDE.md. | 36 |
-| `workflow.md` | Plan → Branch → TDD → Review → Ship. End-of-session sync. Branch strategy. Persist agent files on both harness sides. | 133 |
+| `workflow.md` | Plan → Branch → TDD → Review → Ship. End-of-session sync. Branch strategy. Persist agent files on both harness sides. | 137 |
 | `testing.md` | 80% coverage minimum + mandatory browser walkthrough before "done" | 19 |
 | `performance.md` | Context-window discipline, ultrathink, model routing | 15 |
 | `patterns.md` | API response shape, custom hooks, repository pattern | 18 |
-| `security.md` | Pre-commit security checklist + first-push secret scan for new repos | 43 |
+| `security.md` | Pre-commit security checklist + first-push secret scan for new repos + an identity-number scan on every push of a repo holding data parsed from documents | 74 |
 | `decisions.md` | DECISIONS.md convention for architectural decisions | 14 |
 
 </details>

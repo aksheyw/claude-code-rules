@@ -10,6 +10,18 @@ the pack):
 3. Bug fix or new feature — use a **tdd-guide** agent
 4. Architectural decision — use an **architect** agent
 
+## Pick the agent TYPE before you write the brief
+
+Built-in agent types differ in what they load. Claude Code's read-only `Explore` and `Plan` agents
+skip your CLAUDE.md files and project rules to stay fast and cheap; other subagents load them
+([Claude Code docs](https://code.claude.com/docs/en/sub-agents)).
+
+- If the task only reads and searches, the read-only type is the cheaper choice.
+- **The trade: it does not see your CLAUDE.md files or project rules.** Its brief must carry any
+  binding context, or it will reopen a question you already settled.
+- **A read-only agent cannot write a file.** If you want its report on disk, the main session
+  writes it from the returned text. Say so in the brief.
+
 ## Parallel Task Execution
 
 ALWAYS use parallel Task execution for independent operations:

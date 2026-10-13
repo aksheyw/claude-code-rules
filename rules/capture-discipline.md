@@ -30,6 +30,18 @@ result is produced in chat, write it to a FILE before synthesizing or moving on.
 - Chat/context is ephemeral. If it is not in a file, it does not exist for the next session or for
   verification.
 
+## On a team, other people's agents only see what reaches their copy of the repo
+
+When every teammate drives their own coding agent in their own clone, planning and design that
+nobody writes down stay in one agent's context window. A teammate's agent sees only what has
+reached its own clone. So a teammate who did a lot of design work can look, to everyone else's
+agent, as if they did very little.
+
+- **Commit and push the thinking, not just the artifact.** Design notes and the reasoning behind a
+  decision go into the repo as Markdown, or they do not exist for anyone else's agent.
+- **When an agent's read of a teammate's work seems unfairly small, suspect this first.** Ask what
+  has been pushed before concluding what was done.
+
 ## Where to save
 
 - Project-relevant analysis → the project (`tasks/…`, the wiki, or a `docs/` file) — wherever the

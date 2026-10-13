@@ -73,7 +73,11 @@ Every "save and sync" includes ALL of these (adapt the specifics to your stack):
    - Lint the wiki: fix broken links, stale `updated:` dates, missing frontmatter, orphans
    - **Manual ingest bar:** capture only NON-OBVIOUS, DURABLE knowledge. If a future session can re-derive it from code or git log, skip it.
 6. **Record session summary** in memory / `MEMORY.md`
-7. **Update session handoff doc** — current branch, last commit, test status, primary task
+7. **Update session handoff doc** — current branch, last commit, test status, primary task.
+   Before writing, check which handoff convention the project already uses: one rolling file, or
+   one file per session (`git log -1 -- <rolling file>` shows when the rolling one last moved).
+   Two live conventions are worse than either one, because a stale handoff looks current until
+   someone checks a date. If you find both running, say so rather than silently picking one.
 8. **Save session narrative** for future resume
 9. **Report gate status** — what's still needed before SHIP
 

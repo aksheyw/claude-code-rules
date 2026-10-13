@@ -38,6 +38,37 @@ If ANY pattern matches: STOP. Choose one BEFORE pushing:
 
 **NEVER:** redact in HEAD, commit redactions, push. Earlier commits still expose the full values. The "private repo" status reduces but does NOT eliminate exposure (collaborator-add or visibility-flip re-opens the surface).
 
+## Identity numbers
+
+**Run these on EVERY push of a repo that holds data parsed from documents**, not only the first
+push. Key-shape patterns like the ones above do not match a tax ID or an account number. These
+patterns are Indian identifiers; adapt them to your country's.
+
+```bash
+# Indian PAN (5 letters, 4 digits, 1 letter)
+git grep -nwE '[A-Z]{5}[0-9]{4}[A-Z]'
+# Aadhaar / PRAN / other 12-digit identifiers (expect false positives; read the context)
+git grep -nwE '[0-9]{12}'
+# IFSC (bank branch code)
+git grep -nwE '[A-Z]{4}0[A-Z0-9]{6}'
+# Masked account tails
+git grep -nwE 'XX[0-9]{4,}'
+# The words that sit next to an identifier
+git grep -inwE '(pan|aadhaar|folio|demat|client[ _-]?(id|code)|uan|pran|policy[ _-]?no)'
+```
+
+Use `-w` for whole words, not `\b` inside the pattern. Tested on macOS with Apple's git 2.50.1, a
+`\b` pattern under `git grep -E` matched nothing, even on a line it should match, which looks
+exactly like a clean repo. Read the
+context of every hit before acting: a 12-digit run is often a quantity and a 10-digit run a Unix
+timestamp, and documentation that mentions these words will match the keyword scan. Judge each
+hit; redact only a confirmed real identity value, never bulk-redact on a regex alone.
+
+**Sweep the full history too**, because a working-tree grep misses what is already committed:
+`git log --all -p --no-color > /tmp/hist.txt`, then grep that file. **Prove the method works
+first:** make it find a string you KNOW is in the history. A silently wrong command reads exactly
+like "no findings".
+
 ## Security Response
 
 If issue found: STOP → use **security-reviewer** agent → fix CRITICAL first → rotate exposed secrets → review codebase for similar issues.

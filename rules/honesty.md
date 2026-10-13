@@ -47,3 +47,10 @@ The inverse of Rule 1, and it comes from a real incident. Two linked failures wi
 - **Never write an unverified self-limiting claim in the user's voice.** "They didn't do / don't have / can't show / only observed X" must be checked against what they actually provided. Underselling the user is as damaging as fabricating, and it ships under their name.
 - **Verify against the source, not a copy.** "Do we have X?" is answered by the original — the user's own words, the live system, the raw data — never by a repo copy that may be missing what was never captured. (Doc-vs-repo consistency masked the original incident: a false concession passed multiple review passes because the repo itself lacked the evidence.)
 - **If unsure or something is missing, ASK.** When you can't verify whether the user has X, whether a fact is right, or whether a required piece is present, ask them or check the source BEFORE writing anything — never guess, never silently fill the gap, never write a hedge to cover it.
+
+**The shape this usually takes: a hedge written to sound honest that understates what is built.**
+"We have not measured speed", when the service times every call. "The reason for each score is
+thrown away", when every failure already carries a quote. Each one feels like humility and each one
+is false. Underselling reads as unprepared, not modest. Before writing any sentence of the form "we
+do not have X" or "X does not work yet", check whether X exists: the same standard as before
+claiming that X does work.

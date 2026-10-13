@@ -95,6 +95,30 @@ decision remains:
   execution calls. The line: execution within a decided direction = decide and do; setting or
   foreclosing a direction = ask. When unsure which side a call is on, treat it as the user's.
 
+## Reading the repo is NOT checking the running system
+
+The code in git and the code that is running can differ, and only one of them is what users meet.
+A service deployed by hand, a fix applied on the server, a setting changed in a dashboard: the repo
+knows none of it.
+
+- **When the question is "does it work", ask the running system.** A health endpoint, one
+  read-only request, a log line. Reading source answers "is it wired up", never "is it up".
+- **Name the host before asserting anything negative about infrastructure.** "The service is not
+  running", checked on the wrong machine, is a false report. List what the project actually runs
+  on first.
+- **A response's own metadata often settles what source-reading cannot.** Look for what the
+  system says about itself: a version field, which components handled a request.
+- **Keep it read-only.** A GET, a status call, a log read. This is not a licence to restart,
+  deploy or change anything; those still need explicit permission.
+
+## Relaying a finding is NOT verifying it
+
+A reviewer's finding, a subagent's report, a teammate's summary: each one is a claim. Before you
+rank it, relay it or act on it, open the file it is about. Even when the finding is right, reading
+the source can change the answer: the obvious fix may create a new bug nobody has seen yet. Check
+the reviewer as well. Reviewers produce confident findings that do not hold, so keep a ledger of
+which ones did not.
+
 ## Why / cross-refs
 
 Extends `honesty.md` (earned confidence — homework is what earns a confidence number),
