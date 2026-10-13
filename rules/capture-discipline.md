@@ -34,8 +34,8 @@ result is produced in chat, write it to a FILE before synthesizing or moving on.
 
 - Project-relevant analysis → the project (`tasks/…`, the wiki, or a `docs/` file) — wherever the
   next session will look first.
-- A mechanical backstop (below) can auto-capture raw subagent output to a global directory
-  regardless — but that is a safety net, NOT an excuse to skip deliberately filing the important
+- A mechanical backstop (below) can auto-capture a foreground subagent's raw output to a global
+  directory — but that is a safety net, NOT an excuse to skip deliberately filing the important
   pieces where the next session will look.
 
 ## Mandatory at every session wrap-up: the chat-capture audit
@@ -48,10 +48,15 @@ whether something is saved, OPEN the file — never assume. Record the audit as 
 ## Mechanical backstop (does not depend on recall)
 
 Wire a global **PostToolUse hook** on the subagent tool (matcher `Task`/`Agent`) that auto-writes
-every substantial subagent final output to a dated directory, e.g.
+a substantial subagent final output to a dated directory, e.g.
 `~/.claude/agent-outputs/<project>/<date>/<time>-<agent>.md`, and emits a reminder to fold the key
 findings into a durable project doc. Design constraints: it FAILS OPEN (never blocks a session) and
 has an env-var kill switch.
+
+**The hook only sees the final report of a foreground subagent.** It reads the tool's response. A subagent launched in
+the background returns a launch notice there, not its report. The report arrives later, after the
+hook has fired, and the hook never sees it. So brief every subagent to write its own report to a
+file before it returns, or have the main session write the report to a file the moment it arrives.
 
 ## Why (origin)
 

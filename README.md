@@ -44,7 +44,7 @@ postmortems as much as preferences.
 | `coding-style.md` | Immutability, file size, error handling, Zod validation, the `ponytail:` deliberate-simplification convention | 42 |
 | `honesty.md` | Never fabricate. Earned confidence (95% gate). Capture before you claim. | 49 |
 | `homework-first.md` | **New.** The pre-task sweep: skills → memory → rendered benchmark → project files → history → sibling projects. A question you could answer by opening a file IS the violation. | 102 |
-| `capture-discipline.md` | **New.** Chat is NOT storage: subagent outputs, research, and decisions go to files the moment they exist. | 61 |
+| `capture-discipline.md` | **New.** Chat is NOT storage: subagent outputs, research, and decisions go to files the moment they exist. | 66 |
 | `effort-and-pause-discipline.md` | **New.** Effort tracks blast radius, not task size. An effort question or explicit pause means a text-only turn. | 75 |
 | `agents.md` | **New.** Delegation scales with model tier, parallel subagents, brief children fully, when NOT to delegate. | 60 |
 | `lessons.md` | **New.** The self-improvement loop: every user correction becomes a categorized lesson file; repeats escalate to CLAUDE.md. | 36 |
