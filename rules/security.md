@@ -27,7 +27,7 @@ git grep -E 'sk-[A-Za-z0-9]{30,}'
 # Telegram bot token
 git grep -E '[0-9]{8,12}:[A-Za-z0-9_-]{30,50}'
 # Generic key=value secret assignment
-git grep -E '(secret|api[_-]?key|password|access[_-]?token)\s*[:=]\s*["\047`][A-Za-z0-9_+/=-]{20,}'
+git grep -inE "(secret|api[_-]?key|password|access[_-]?token)[[:space:]]*[:=][[:space:]]*[\"'\`][A-Za-z0-9_+/=-]{20,}"
 ```
 
 If ANY pattern matches: STOP. Choose one BEFORE pushing:
@@ -57,9 +57,9 @@ git grep -nwE 'X{2,}[0-9]{4,}'
 git grep -inwE '(pan|aadhaar|folio|demat|client[ _-]?(id|code)|uan|pran|policy[ _-]?no)'
 ```
 
-Use `-w` for whole words, not `\b` inside the pattern. Tested on macOS with Apple's git 2.50.1, a
-`\b` pattern under `git grep -E` matched nothing, even on a line it should match, which looks
-exactly like a clean repo. Read the
+Use `-w` for whole words, not `\b` inside the pattern, and `[[:space:]]`, not `\s`. Tested on macOS
+with Apple's git 2.50.1, a `\b` pattern under `git grep -E` matched nothing, even on a line it should
+match, and `\s` did not match a space. Both look exactly like a clean repo. Read the
 context of every hit before acting: a 12-digit run is often a quantity and a 10-digit run a Unix
 timestamp, and documentation that mentions these words will match the keyword scan. Judge each
 hit; redact only a confirmed real identity value, never bulk-redact on a regex alone.
