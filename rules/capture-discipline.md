@@ -46,7 +46,7 @@ agent, as if they did very little.
 
 - Project-relevant analysis → the project (`tasks/…`, the wiki, or a `docs/` file) — wherever the
   next session will look first.
-- A mechanical backstop (below) can auto-capture a foreground subagent's raw output to a global
+- A mechanical backstop (below) can auto-capture a subagent's raw report to a global
   directory — but that is a safety net, NOT an excuse to skip deliberately filing the important
   pieces where the next session will look.
 
@@ -59,16 +59,18 @@ whether something is saved, OPEN the file — never assume. Record the audit as 
 
 ## Mechanical backstop (does not depend on recall)
 
-Wire a global **PostToolUse hook** on the subagent tool (matcher `Task`/`Agent`) that auto-writes
-a substantial subagent final output to a dated directory, e.g.
-`~/.claude/agent-outputs/<project>/<date>/<time>-<agent>.md`, and emits a reminder to fold the key
-findings into a durable project doc. Design constraints: it FAILS OPEN (never blocks a session) and
-has an env-var kill switch.
+Wire a global hook that auto-writes a substantial subagent report to a dated directory, e.g.
+`~/.claude/agent-outputs/<project>/<date>/<time>-<agent>.md`, and, where it can, emits a reminder to
+fold the key findings into a durable project doc. Design constraints: it FAILS OPEN (never blocks a
+session), has an env-var kill switch, and prints nothing on `SubagentStop`, where its reminder would keep
+the subagent running.
 
-**The hook only sees the final report of a foreground subagent.** It reads the tool's response. A subagent launched in
-the background returns a launch notice there, not its report. The report arrives later, after the
-hook has fired, and the hook never sees it. So brief every subagent to write its own report to a
-file before it returns, or have the main session write the report to a file the moment it arrives.
+**Wire it to every path a report takes.** In Claude Code a report arrives one of three ways: as the
+subagent tool's result (a subagent the main session waits for), through the `SubagentHandback`
+tool (auto mode), or as `last_assistant_message` on the `SubagentStop` event. A hook on the
+subagent tool alone sees only the first, and Claude Code runs subagents in the
+background by default, where that result is only a launch notice. Brief every subagent to write its
+own report to a file as well: the hook is the backstop, not the plan.
 
 ## Why (origin)
 
