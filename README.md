@@ -2,9 +2,9 @@
 
 # 📋 Claude Code Rules: my opinionated global config
 
-### Thirteen standing rules, so I stop re-explaining myself after every context reset.
+### Sixteen standing rules, so I stop re-explaining myself after every context reset.
 
-![requires](https://img.shields.io/badge/requires-Claude%20Code-D97757) ![rules](https://img.shields.io/badge/rules-13-0E9384) ![loads](https://img.shields.io/badge/loads-automatically-1B2A4A) ![dependencies](https://img.shields.io/badge/dependencies-none-lightgrey) ![license](https://img.shields.io/badge/license-MIT-green)
+![requires](https://img.shields.io/badge/requires-Claude%20Code-D97757) ![rules](https://img.shields.io/badge/rules-16-0E9384) ![loads](https://img.shields.io/badge/loads-automatically-1B2A4A) ![dependencies](https://img.shields.io/badge/dependencies-none-lightgrey) ![license](https://img.shields.io/badge/license-MIT-green)
 
 </div>
 
@@ -15,10 +15,10 @@ project, and can change them for you. A **rule** is a markdown file it loads int
 its own, before you ask it anything.
 
 It forgets everything between sessions, and a long one resets partway through too. I kept
-re-teaching it the same conventions and losing them again, so I wrote the thirteen that stuck.
+re-teaching it the same conventions and losing them again, so I wrote the sixteen that stuck.
 
 <img src="docs/what-a-rule-changes.svg" width="100%"
-     alt="An illustration of the same question asked twice: how confident are you that getUserById returns the canonical user record? Without the rules loaded, the answer is 'I'm 95% confident, it queries the users table directly with the primary key', and the number was never earned because nothing was checked. With honesty.md loaded, the answer is 'I haven't traced the call path yet. Want me to check before I commit to a number? The name suggests a direct lookup, but I'd want to rule out a cache layer or a partial projection first', which is a hedge you can act on and an offer to go and check. Below: thirteen rules load automatically at the start of every session, in four groups. Four on how it reports and learns (honesty, homework, capture, lessons), four on how work ships (workflow, testing, security, decisions), three on how code gets written (coding-style, patterns, performance), and two on how work gets handed off (agents, effort-and-pause).">
+     alt="An illustration of the same question asked twice: how confident are you that getUserById returns the canonical user record? Without the rules loaded, the answer is 'I'm 95% confident, it queries the users table directly with the primary key', and the number was never earned because nothing was checked. With honesty.md loaded, the answer is 'I haven't traced the call path yet. Want me to check before I commit to a number? The name suggests a direct lookup, but I'd want to rule out a cache layer or a partial projection first', which is a hedge you can act on and an offer to go and check. Below: sixteen rules load automatically at the start of every session, in four groups. Five on how it reports and learns (honesty, homework, capture, lessons, plain-replies), four on how work ships (workflow, testing, security, decisions), three on how code gets written (coding-style, patterns, performance), and four on how it works with you (agents, effort-and-pause, hold-your-view, gaps-are-tasks).">
 
 ## Why a rule beats saying it again
 
@@ -31,13 +31,13 @@ treats "95% confident" as a high bar, not a default. Reading one file and patter
 earn the number. Tracing the path end to end does. So you get fewer confident guesses, and more "I
 haven't verified that yet, want me to check?" halfway through a task.
 
-Five of the thirteen name the specific session that produced them. They're
+Five of the sixteen name the specific session that produced them. They're
 postmortems as much as preferences.
 
 <details>
-<summary><b>📋 All thirteen rules, and what each one enforces</b></summary>
+<summary><b>📋 All sixteen rules, and what each one enforces</b></summary>
 
-13 rules. The original 8, refreshed, plus 5 new ones distilled from another two months of daily use.
+16 rules. The original 8, refreshed, plus 5 new ones distilled from another two months of daily use, plus 3 that were measured in a trial before they were added.
 
 | Rule | What it enforces | Lines |
 |------|------------------|-------|
@@ -54,6 +54,9 @@ postmortems as much as preferences.
 | `patterns.md` | API response shape, custom hooks, repository pattern | 18 |
 | `security.md` | Pre-commit security checklist + first-push secret scan for new repos + an identity-number scan on every push of a repo holding data parsed from documents | 74 |
 | `decisions.md` | DECISIONS.md convention for architectural decisions | 14 |
+| `hold-your-view.md` | **Tested.** When you push back on a recommendation that named a real risk, with only a preference and no new fact, it names the cost once and asks, instead of caving. Held 11 of 12 times in a trial; 0 of 12 with no rule. It adds some friction on harmless choices: 5 of 12 went smoothly, against 8 of 12 with no rule. | 18 |
+| `gaps-are-tasks-not-facts.md` | **Tested.** A claim the evidence cannot support comes back to you as a task (what it unlocks, who could close it, the cost), not as a quietly smaller deliverable. 18 of 18 in a trial; 9 of 18 with no rule. | 41 |
+| `plain-replies.md` | **Tested.** Replies lead with the point and the ask, one idea per sentence, with depth in files. The median reply fell from 337 words to 190 in a trial. | 28 |
 
 </details>
 
